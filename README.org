@@ -9,11 +9,18 @@ A Web API write in Go Lang.
 - support remote download, and move to local
 
 ** architecture
+overview:
 - daemon server
   - config file for downloader (add / delete / start / stop / specify download folder)
   - adapt downloader config, call right downloader for each download link
 - cli client
 - web GUI
+
+internal:
+- router
+- responder
+  - i/o formater
+  - bussiness logic
 
 ** how to impl
 - act as downloader - [1](https://github.com/golang/go/wiki/Projects#p2p-and-file-sharing)

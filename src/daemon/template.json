@@ -1,0 +1,15 @@
+{
+    "downloader": [
+        {
+            "type": "transmission",
+            "action": {
+                "start": "transmission-daemon",
+                "stop": "",
+                "create": "transmission-remote --add \"$LINK\"",
+                "read": "transmission-remote --list",
+                "update": "",
+                "delete": "transmission-remote -t 2 -rad"
+            }
+        }
+    ]
+}

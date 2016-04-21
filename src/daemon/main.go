@@ -2,16 +2,25 @@ package main
 
 import (
 	"fmt"
-	"github.com/spf13/viper"
+	"github.com/buger/jsonparser"
+	"io/ioutil"
+	"os"
+	"path"
+	"path/filepath"
 )
 
-func main() {
-	viper.SetConfigName("config")
-	viper.SetConfigType("json")
-	viper.AddConfigPath("$HOME/.down")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+func check(e error) {
+	if e != nil {
+		panic(e)
 	}
+}
+
+func main() {
+	// read configuration file
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	check(err)
+	config, err := ioutil.ReadFile(path.Join(dir, "config.json"))
+	check(err)
+	config, _, _, _ = jsonparser.Get(config, "downloader")
+	fmt.Println(string(config))
 }
